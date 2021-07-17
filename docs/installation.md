@@ -10,8 +10,8 @@ Install Node.js and Yarn - follow these [instructions](https://gist.github.com/b
 ## 2. Clone
 
 ```sh
-$ git clone git@github.com:MichaelCurrin/vue-typescript-quickstart.git
-$ cd vue-typescript-quickstart
+$ git clone git@github.com:MichaelCurrin/corruption-calculator.git
+$ cd corruption-calculator
 ```
 
 ## 3. Install project dependencies

@@ -24,6 +24,6 @@ This project will run checks and build steps on [GitHub Actions](https://github.
 
 See the [workflow](/.github/workflows/main.yml) config file.
 
-See results on the [Actions](https://github.com/MichaelCurrin/vue-typescript-quickstart/actions/) tab.
+See results on the [Actions](https://github.com/MichaelCurrin/corruption-calculator/actions/) tab.
 
 TODO: Add your deploy instructions here. Such as now to deploy to GH Pages, Netlify, Vercel, etc.
