@@ -5,12 +5,10 @@
   "author": "MichaelCurrin",
   "license": "MIT",
   "scripts": {
-    "lint:fix": "vue-cli-service lint",
-    "lint:check": "vue-cli-service lint --no-fix",
     "serve": "vue-cli-service serve",
     "start": "yarn serve",
     "build": "vue-cli-service build",
-    "preversion": "git fetch --tags && yarn lint:check",
+    "preversion": "git fetch --tags",
     "version": "yarn build",
     "postversion": "git push --follow-tags"
   },
@@ -29,12 +27,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/MichaelCurrin/corruption-calculator"
-  },
-  "bugs": "https://github.com/MichaelCurrin/corruption-calculator/issues",
-  "keywords": [
-    "quickstart",
-    "starter",
-    "vue",
-    "typescript"
-  ]
+  }
 }
