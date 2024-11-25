@@ -20,17 +20,21 @@ See the code here [plain-js-apps](plain-js-apps) and previews below:
 
 ![light](light.png)
 
-Downloaded from https://websim.ai/p/j1sd4xzlvyqtgin1m1pl/1
+Visible online at https://websim.ai/p/j1sd4xzlvyqtgin1m1pl/1
+
+Generated using "corruption-calculator.co.za" as the prompt and a screenshot of the basic Vue app.
 
 ### Dark style
 
-Dark theme, more professional look, and extended with more inputs and with table for output:
+![dark](dark.png)
 
+Visible online at https://websim.ai/@MichaelPythonDev/corruption-cost-impact-calculator
 
-Downloaded from https://websim.ai/@MichaelPythonDev/corruption-cost-impact-calculator
+Here were the prompts to extend from the light mode, for dark theme and extended components:
 
-
-
+1. _use material theme. choose a dark theme with some eerie corruption and crime busting theme colors and font_
+1. _add some more medical equipment and other things important for social wellfare in South Africa_
+1. _turn the results in to a table_
 
 
 ## Documentation
