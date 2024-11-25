@@ -5,7 +5,7 @@
 Run a local production-optimized build.
 
 ```sh
-$ npm run build
+$ yarn build
 ```
 
 
@@ -14,7 +14,7 @@ $ npm run build
 This will run checks and tests, increment the tag version and push the new tagged commit.
 
 ```sh
-$ npm version minor
+$ yarn version minor
 ```
 
 
@@ -25,5 +25,3 @@ This project will run checks and build steps on [GitHub Actions](https://github.
 See the [workflow](/.github/workflows/main.yml) config file.
 
 See results on the [Actions](https://github.com/MichaelCurrin/corruption-calculator/actions/) tab.
-
-TODO: Add your deploy instructions here. Such as now to deploy to GH Pages, Netlify, Vercel, etc.
