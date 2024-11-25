@@ -1,0 +1,250 @@
+<html>
+
+<head>
+  <base href="corruption-calculator.co.za">
+  <title>Corruption Cost Impact Calculator</title>
+  <style>
+    :root {
+      --primary: #512da8;
+      --secondary: #ff1744;
+      --background: #121212;
+      --surface: #1e1e1e;
+      --text: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --error: #cf6679;
+    }
+
+    body {
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    .calculator {
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    h1 {
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 300;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--secondary);
+    }
+
+    h2 {
+      color: var(--text-secondary);
+      font-weight: 400;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    label {
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    label:hover {
+      color: var(--text);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      accent-color: var(--secondary);
+    }
+
+    .results {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(81, 45, 168, 0.15);
+      border-radius: 4px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .impact-numbers {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin: 1rem 0;
+      font-weight: 300;
+      text-shadow: 0 0 10px rgba(255, 23, 68, 0.3);
+    }
+
+    .share-button {
+      background: var(--primary);
+      color: var(--text);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(81, 45, 168, 0.4);
+    }
+
+    .share-button:hover {
+      background: #673ab7;
+      box-shadow: 0 4px 12px rgba(81, 45, 168, 0.6);
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 0.8rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="calculator">
+    <h1>Corruption Cost Impact Calculator</h1>
+
+    <div class="form-group">
+      <h2>Material Irregularity</h2>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="amount" value="20" checked>
+          R 20 billion (2010)
+        </label>
+        <label>
+          <input type="radio" name="amount" value="25">
+          R 25 billion (2015)
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <h2>What that money could buy</h2>
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" name="items" value="beds" checked>
+          Hospital beds
+        </label>
+        <label>
+          <input type="checkbox" name="items" value="xray" checked>
+          X-ray machines
+        </label>
+        <label>
+          <input type="checkbox" name="items" value="defib">
+          Defibrillators
+        </label>
+      </div>
+    </div>
+
+    <div class="results">
+      <h2>Results</h2>
+      <div id="impact-display">
+        <h3>COST OF CORRUPTION</h3>
+        <div class="impact-numbers">R 20.000 billion</div>
+        <p>That money could have paid for:</p>
+        <ul>
+          <li>83,333,333 X-ray machines at R 120,000 each</li>
+          <li>416,666,667 Hospital beds at R 24,000 each</li>
+        </ul>
+      </div>
+      <button class="share-button" onclick="shareResults()">Share Results</button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+      input.addEventListener('change', calculateImpact);
+    });
+
+    function calculateImpact() {
+      const amount = document.querySelector('input[name="amount"]:checked').value * 1000000000;
+      const items = Array.from(document.querySelectorAll('input[name="items"]:checked')).map(cb => cb.value);
+
+      const costs = {
+        beds: 24000,
+        xray: 120000,
+        defib: 45000
+      };
+
+      let html = `<h3>COST OF CORRUPTION</h3>
+              <div class="impact-numbers">R ${(amount / 1000000000).toFixed(3)} billion</div>
+              <p>That money could have paid for:</p><ul>`;
+
+      items.forEach(item => {
+        const quantity = Math.floor(amount / (costs[item] * items.length));
+        const itemName = item === 'beds' ? 'Hospital beds' :
+          item === 'xray' ? 'X-ray machines' :
+            'Defibrillators';
+        html += `<li>${quantity.toLocaleString()} ${itemName} at R ${costs[item].toLocaleString()} each</li>`;
+      });
+
+      html += '</ul>';
+      document.getElementById('impact-display').innerHTML = html;
+    }
+
+    function shareResults() {
+      const text = document.getElementById('impact-display').textContent;
+      if (navigator.share) {
+        navigator.share({
+          title: 'Corruption Cost Impact',
+          text: text,
+          url: window.location.href
+        });
+      } else {
+        alert('Share functionality not supported by your browser. Copy the results manually.');
+      }
+    }
+  </script>
+
+</body>
+
+</html>
