@@ -128,22 +128,34 @@
       box-shadow: 0 4px 12px rgba(81, 45, 168, 0.6);
     }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 4px;
+      overflow: hidden;
     }
 
-    li {
-      margin: 0.8rem 0;
-      padding-left: 1.5rem;
-      position: relative;
+    th,
+    td {
+      padding: 0.8rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--secondary);
+    th {
+      background: rgba(81, 45, 168, 0.2);
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    tr:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    td:last-child {
+      text-align: right;
     }
   </style>
 </head>
@@ -164,11 +176,15 @@
           <input type="radio" name="amount" value="25">
           R 25 billion (2015)
         </label>
+        <label>
+          <input type="radio" name="amount" value="30">
+          R 30 billion (2020)
+        </label>
       </div>
     </div>
 
     <div class="form-group">
-      <h2>What that money could buy</h2>
+      <h2>What that money could have provided</h2>
       <div class="checkbox-group">
         <label>
           <input type="checkbox" name="items" value="beds" checked>
@@ -182,6 +198,26 @@
           <input type="checkbox" name="items" value="defib">
           Defibrillators
         </label>
+        <label>
+          <input type="checkbox" name="items" value="ambulance">
+          Ambulances
+        </label>
+        <label>
+          <input type="checkbox" name="items" value="vaccine">
+          Vaccine doses
+        </label>
+        <label>
+          <input type="checkbox" name="items" value="school">
+          School classrooms
+        </label>
+        <label>
+          <input type="checkbox" name="items" value="houses">
+          RDP houses
+        </label>
+        <label>
+          <input type="checkbox" name="items" value="water">
+          Water tanks (5000L)
+        </label>
       </div>
     </div>
 
@@ -191,10 +227,27 @@
         <h3>COST OF CORRUPTION</h3>
         <div class="impact-numbers">R 20.000 billion</div>
         <p>That money could have paid for:</p>
-        <ul>
-          <li>83,333,333 X-ray machines at R 120,000 each</li>
-          <li>416,666,667 Hospital beds at R 24,000 each</li>
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Unit Cost</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hospital beds</td>
+              <td>R 24,000</td>
+              <td>416,666,667</td>
+            </tr>
+            <tr>
+              <td>X-ray machines</td>
+              <td>R 120,000</td>
+              <td>83,333,333</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <button class="share-button" onclick="shareResults()">Share Results</button>
     </div>
@@ -212,22 +265,47 @@
       const costs = {
         beds: 24000,
         xray: 120000,
-        defib: 45000
+        defib: 45000,
+        ambulance: 900000,
+        vaccine: 200,
+        school: 1500000,
+        houses: 180000,
+        water: 5000
       };
 
       let html = `<h3>COST OF CORRUPTION</h3>
               <div class="impact-numbers">R ${(amount / 1000000000).toFixed(3)} billion</div>
-              <p>That money could have paid for:</p><ul>`;
+              <p>That money could have paid for:</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Unit Cost</th>
+                    <th>Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>`;
 
       items.forEach(item => {
         const quantity = Math.floor(amount / (costs[item] * items.length));
-        const itemName = item === 'beds' ? 'Hospital beds' :
-          item === 'xray' ? 'X-ray machines' :
-            'Defibrillators';
-        html += `<li>${quantity.toLocaleString()} ${itemName} at R ${costs[item].toLocaleString()} each</li>`;
+        const itemName = {
+          'beds': 'Hospital beds',
+          'xray': 'X-ray machines',
+          'defib': 'Defibrillators',
+          'ambulance': 'Fully equipped ambulances',
+          'vaccine': 'COVID-19 vaccine doses',
+          'school': 'School classrooms',
+          'houses': 'RDP houses',
+          'water': 'Water tanks (5000L)'
+        }[item];
+        html += `<tr>
+              <td>${itemName}</td>
+              <td>R ${costs[item].toLocaleString()}</td>
+              <td>${quantity.toLocaleString()}</td>
+            </tr>`;
       });
 
-      html += '</ul>';
+      html += '</tbody></table>';
       document.getElementById('impact-display').innerHTML = html;
     }
 
@@ -243,6 +321,9 @@
         alert('Share functionality not supported by your browser. Copy the results manually.');
       }
     }
+
+    // Initialize calculation on page load
+    calculateImpact();
   </script>
 
 </body>

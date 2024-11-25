@@ -24,9 +24,13 @@ Downloaded from https://websim.ai/p/j1sd4xzlvyqtgin1m1pl/1
 
 ### Dark style
 
-![dark](dark.png)
+Dark theme, more professional look, and extended with more inputs and with table for output:
+
 
 Downloaded from https://websim.ai/@MichaelPythonDev/corruption-cost-impact-calculator
+
+
+
 
 
 ## Documentation
