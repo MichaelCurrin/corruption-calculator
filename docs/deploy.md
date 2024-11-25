@@ -14,7 +14,7 @@ $ yarn build
 This will run checks and tests, increment the tag version and push the new tagged commit.
 
 ```sh
-$ yarn version minor
+$ npm version minor
 ```
 
 
