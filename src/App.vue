@@ -3,20 +3,9 @@
 
   <h2>Material irregularity</h2>
 
-  <!-- <Amount></Amount> -->
-
-  <div id="radiobutton">
-    <input type="radio" id="one" value="20000" v-model="picked" checked />
-    <label for="one">R 20 billion (2010)</label>
-    <br />
-
-    <input type="radio" id="two" value="25000" v-model="picked" />
-    <label for="two">R 25 billion (2015)</label>
-  </div>
+  <Amount v-model="picked" />
 
   <h2>What that money could buy</h2>
-
-  <!-- <Expenses v-bind:expenses="checkedExpenses"></Expenses> -->
 
   <div id="multiple-checkboxes">
     <input type="checkbox" id="hospital-beds" value="hospital-beds" v-model="checkedExpenses" />
@@ -39,7 +28,7 @@
     <h3>COST OF CORRUPTION</h3>
 
     <p>
-      <b>R {{ picked.toLocaleString() }} million</b>
+      <b>R {{ picked.toLocaleString() }} billion</b>
     </p>
 
     <div v-if="checkedExpenses.length">
@@ -61,27 +50,19 @@
           }} {{ costing[item].name }} at R {{ costing[item].cost.toLocaleString() }} each
         </li>
       </ul>
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-// import Amount from "./components/Amount.vue";
-// import Expenses from "./components/Expenses.vue";
+import Amount from "./components/Amount.vue";
 
 export default defineComponent({
   name: "App",
   components: {
-    // Amount,
-    // Expenses,
+    Amount,
   },
-  // computed: {
-  //   allocated() {
-  //     return this.picked / this.checkedExpenses.length;
-  //   },
-  // },
   data() {
     return {
       picked: 20000,
